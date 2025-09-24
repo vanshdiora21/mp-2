@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Emoji } from "../interfaces/Emoji";
+import type { Emoji } from "../interfaces/Emoji";
+
 
 const EmojiContainer = styled.div`
   border: 2px solid darkmagenta;

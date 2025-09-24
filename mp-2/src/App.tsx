@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import EmojiDisplay from "./components/EmojiDisplay";
 import styled from "styled-components";
-import { Emoji } from "./interfaces/Emoji";
+import type { Emoji } from "./interfaces/Emoji";
 
 const ParentDiv = styled.div`
   width: 80vw;
