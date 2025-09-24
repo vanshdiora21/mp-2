@@ -1,35 +1,45 @@
 import { useState, useEffect } from "react";
-import DogDisplay from "./components/DogDisplay";
+import EmojiDisplay from "./components/EmojiDisplay";
 import styled from "styled-components";
+import { Emoji } from "./interfaces/Emoji";
 
 const ParentDiv = styled.div`
   width: 80vw;
   margin: auto;
-  border: 5px darkgoldenrod solid;
+  border: 5px darkmagenta solid;
   padding: 2rem;
   text-align: center;
 `;
 
 export default function App() {
-  const [image, setImage] = useState<string>("");
+  const [emoji, setEmoji] = useState<Emoji | null>(null);
 
   useEffect(() => {
-    async function fetchDogImage() {
+    async function fetchRandomEmoji() {
       try {
-        const res = await fetch("https://dog.ceo/api/breeds/image/random");
-        const data = await res.json();
-        setImage(data.message); // 'message' contains the image URL
+        const response = await fetch(
+          "https://emojihub.yurace.pro/api/random"
+        );
+        const data: any = await response.json();
+        const emojiData: Emoji = {
+          name: data.name,
+          category: data.category,
+          group: data.group,
+          htmlCode: data.htmlCode,
+          unicode: data.unicode,
+        };
+        setEmoji(emojiData);
       } catch (error) {
-        console.error("Error fetching dog image:", error);
+        console.error("Error fetching emoji:", error);
       }
     }
-    fetchDogImage();
+    fetchRandomEmoji();
   }, []);
 
   return (
     <ParentDiv>
-      <h1>Random Dog Image</h1>
-      <DogDisplay imageUrl={image} />
+      <h1>Random Emoji</h1>
+      <EmojiDisplay emoji={emoji} />
     </ParentDiv>
   );
 }
